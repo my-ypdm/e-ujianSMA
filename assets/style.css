@@ -1556,10 +1556,7 @@
 
     }
 
-    *
-
-
-/* =========================================================
+/* =====
    Layout responsif dan sidebar
    Sidebar tersembunyi pada semua ukuran layar.
    Tombol hamburger digunakan untuk membuka sidebar.
@@ -1877,5 +1874,99 @@ body > footer {
     *::before,
     *::after {
         transition: none !important;
+    }
+}
+
+
+/* ===== Perbaikan final sidebar dan lapisan menu ===== */
+.site-header,
+.home-wrap,
+.page-wrap,
+body > footer {
+    margin-left: 0 !important;
+}
+
+/* Sidebar harus solid dan berada di atas backdrop */
+.sidebar {
+    position: fixed !important;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 270px;
+    max-width: calc(100vw - 56px);
+    background: #12345a !important;
+    color: #fff;
+    opacity: 1 !important;
+    z-index: 2002 !important;
+    transform: translateX(-105%);
+    transition: transform 0.25s ease;
+    box-shadow: 12px 0 32px rgba(7, 28, 54, 0.18);
+}
+
+.sidebar.is-open {
+    transform: translateX(0) !important;
+}
+
+/* Backdrop ada di bawah sidebar, bukan menimpa sidebar */
+.sidebar-backdrop {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(7, 28, 54, 0.38);
+    z-index: 2001 !important;
+}
+
+.sidebar-backdrop.is-visible {
+    display: block;
+}
+
+/* Hamburger tetap dapat digunakan saat menu terbuka */
+.sidebar-toggle {
+    display: grid !important;
+    place-items: center;
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    width: 42px;
+    height: 42px;
+    border: 1px solid #e1e8f0;
+    border-radius: 10px;
+    background: #fff;
+    color: #12345a;
+    font-size: 22px;
+    z-index: 2003 !important;
+    cursor: pointer;
+}
+
+/* Header tetap satu baris dan tidak tertimpa tombol menu */
+.site-header {
+    position: relative;
+    z-index: 1;
+    padding-left: 72px;
+    padding-right: 24px;
+}
+
+/* Hindari konten utama melebar melebihi viewport */
+.home-wrap,
+.page-wrap {
+    width: min(1120px, calc(100% - 48px));
+    margin-left: auto !important;
+    margin-right: auto !important;
+    box-sizing: border-box;
+}
+
+@media (max-width: 760px) {
+    .site-header {
+        padding-left: 68px;
+        padding-right: 16px;
+    }
+
+    .home-wrap,
+    .page-wrap {
+        width: calc(100% - 32px);
+    }
+
+    .sidebar {
+        width: min(270px, calc(100vw - 56px));
     }
 }
