@@ -108,3 +108,50 @@ function renderSpecificClasses() {
 }
 renderSubjects();
 renderSpecificClasses();
+
+
+// Sidebar navigation: hamburger menu on mobile and active page indicator.
+document.addEventListener('DOMContentLoaded', () => {
+  const sidebar = document.getElementById('sidebar');
+  const toggle = document.getElementById('sidebarToggle');
+  const backdrop = document.getElementById('sidebarBackdrop');
+
+  if (sidebar && toggle && backdrop) {
+    const setOpen = (open) => {
+      sidebar.classList.toggle('is-open', open);
+      backdrop.classList.toggle('is-visible', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Tutup menu navigasi' : 'Buka menu navigasi');
+      document.body.classList.toggle('sidebar-menu-open', open);
+    };
+
+    toggle.addEventListener('click', () => {
+      setOpen(!sidebar.classList.contains('is-open'));
+    });
+    backdrop.addEventListener('click', () => setOpen(false));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    });
+    sidebar.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => setOpen(false));
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 760) setOpen(false);
+    });
+  }
+
+  const currentFile = location.pathname.split('/').pop() || 'index.html';
+  let currentPage = 'home';
+  if (currentFile === 'kelas.html') currentPage = 'kelas';
+  else if (currentFile === 'mapel.html') currentPage = 'mapel';
+  else if (currentFile === 'kelas-spesifik.html') currentPage = 'spesifik';
+
+  document.querySelectorAll('.sidebar-nav a').forEach((link) => {
+    const page = link.dataset.page;
+    if (page === currentPage || (currentPage === 'mapel' && page === 'kelas') ||
+        (currentPage === 'spesifik' && page === 'kelas')) {
+      link.classList.add('active');
+      if (page === currentPage) link.setAttribute('aria-current', 'page');
+    }
+  });
+});
