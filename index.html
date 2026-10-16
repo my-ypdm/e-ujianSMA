@@ -9,7 +9,7 @@
     </head>
     <body>
         <aside class="sidebar" id="sidebar">
-            <a href="index.html" class="sidebar-brand">
+            <a class="sidebar-brand" href="index.html">
                 <span class="brand-mark">DM</span>
                 <span>
                     <strong>E-UJIAN</strong>
@@ -21,11 +21,10 @@
 
             <nav class="sidebar-nav" aria-label="Menu utama">
                 <a href="index.html" data-page="home">
-                    <span>⌂</span> Beranda
+                    <span aria-hidden="true">⌂</span> Beranda
                 </a>
-
                 <a href="kelas.html" data-page="kelas">
-                    <span>▦</span> Pilih Kelas
+                    <span aria-hidden="true">▦</span> Pilih Kelas
                 </a>
             </nav>
 
@@ -38,6 +37,7 @@
         <button
             class="sidebar-toggle"
             id="sidebarToggle"
+            type="button"
             aria-label="Buka menu navigasi"
             aria-controls="sidebar"
             aria-expanded="false"
@@ -46,15 +46,16 @@
         </button>
 
         <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
         <header class="site-header">
-        <a class="brand" href="index.html">
-            <span class="brand-mark">DM</span>
-            <span>
-            <strong>E-UJIAN</strong>
-            <small>SMA DUA MEI</small>
-            </span>
-        </a>
-        <span class="header-label">Portal Ujian Sekolah</span>
+            <a class="brand" href="index.html">
+                <span class="brand-mark">DM</span>
+                <span>
+                    <strong>E-UJIAN</strong>
+                    <small>SMA DUA MEI</small>
+                </span>
+            </a>
+            <span class="header-label">Portal Ujian Sekolah</span>
         </header>
 
         <main class="home-wrap">
@@ -102,6 +103,7 @@
         </main>
 
         <footer>© SMA Dua Mei · Portal E-Ujian</footer>
+
+    <script src="assets/app.js"></script>
     </body>
 </html>
-
