@@ -43,9 +43,36 @@ function targetForClassName(value, requestedGrade) {
   return '';
 }
 
-function rowsForGrade(g) {
-  return scheduleRows.filter(row => gradeForClassName(row.kelas) === g);
+
+function todayJakartaDate() {
+  const parts = new Intl.DateTimeFormat('en-CA', {
+    timeZone: 'Asia/Jakarta',
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit'
+  }).formatToParts(new Date());
+
+  const values = {};
+
+  parts.forEach(part => {
+    if (part.type !== 'literal') {
+      values[part.type] = part.value;
+    }
+  });
+
+  return `${values.year}-${values.month}-${values.day}`;
 }
+
+function rowsForGrade(g) {
+  const today = todayJakartaDate();
+
+  return scheduleRows.filter(row =>
+    gradeForClassName(row.kelas) === g &&
+    String(row.tanggal || '').trim() === today &&
+    String(row.status || '').trim().toUpperCase() === 'AKTIF'
+  );
+}
+
 
 function rowsForSubject(g, subjectName) {
   return rowsForGrade(g).filter(row => String(row.mapel || '').trim() === String(subjectName || '').trim());
